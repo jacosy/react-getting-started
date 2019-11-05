@@ -5,23 +5,44 @@
 </head>
 
 <body>
-  <div id="content"></div>
-  <div id="content2"></div>
+  <div id="content"></div>  
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-      function Button(){
-        const [counter, setCounter] = React.useState(5)
-        return <button onClick={()=>setCounter(counter*2)}>{counter}</button>
-      }
-
       function Hello(){
-        return <div>Hello React!</div>
+        return <h1>Welcome to React Counter!</h1>
       }
 
-      ReactDOM.render(<Hello />, document.getElementById('content'))
-      ReactDOM.render(<Button />, document.getElementById('content2'))
+      function Button(props){ 
+        return (
+          <button onClick={props.onClickFn}>{props.message}</button>
+        )
+      }
+
+      function Display(props) {
+        return (
+          <h3>{props.message}</h3>
+        )
+      }
+
+      function App() {
+        const [counter, setCounter] = React.useState(0)
+        const incrementCounter = ()=>setCounter(counter+1)
+        const decrementCounter = ()=>setCounter(counter-1)
+
+        return (
+          <>
+            <Hello />            
+            <Button message={"-1"} onClickFn={decrementCounter} />
+            <Button message={"+1"} onClickFn={incrementCounter} />
+            <br />
+            <Display message={counter} />
+          </>
+        )
+      }
+
+      ReactDOM.render(<App />, document.getElementById('content'))      
   </script>
 </body>
 
